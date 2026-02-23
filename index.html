@@ -1,0 +1,1222 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MerryEasyEnglish - Репетитор Мария Черникова</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --navy: #1B3A57;
+            --navy-light: #2C5270;
+            --burgundy: #800020;
+            --burgundy-light: #A0153E;
+            --beige: #F5E6D3;
+            --beige-dark: #E8D5C4;
+            --white: #FFFFFF;
+            --gradient-main: linear-gradient(135deg, #F5E6D3 0%, #E8D5C4 50%, #D4A574 100%);
+            --gradient-navy: linear-gradient(135deg, #1B3A57 0%, #2C5270 100%);
+            --gradient-burgundy: linear-gradient(135deg, #800020 0%, #A0153E 100%);
+            --gradient-glossy: linear-gradient(180deg, rgba(255,255,255,0.3) 0%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.05) 100%);
+            --glass-bg: rgba(255, 255, 255, 0.85);
+            --glass-border: rgba(255, 255, 255, 0.6);
+            --shadow-soft: 0 8px 32px rgba(27, 58, 87, 0.12);
+            --shadow-hover: 0 15px 40px rgba(27, 58, 87, 0.18);
+            --shadow-glossy: 0 8px 24px rgba(128, 0, 32, 0.35), inset 0 2px 4px rgba(255,255,255,0.3);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Comfortaa', cursive;
+            background: linear-gradient(135deg, #FDFBF7 0%, #F5F0EB 50%, #EBE5DE 100%);
+            background-attachment: fixed;
+            color: var(--navy);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Comfortaa', cursive;
+            color: var(--navy);
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: all 0.3s ease;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Glass Effect */
+        .glass {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--shadow-soft);
+        }
+
+        /* Glossy Button */
+        .btn-glossy {
+            display: inline-block;
+            background: var(--gradient-burgundy);
+            color: var(--white);
+            padding: 16px 42px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 1rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            border: none;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            box-shadow: var(--shadow-glossy);
+            position: relative;
+            overflow: hidden;
+            font-family: 'Comfortaa', cursive;
+        }
+
+        .btn-glossy::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .btn-glossy:hover::before {
+            left: 100%;
+        }
+
+        .btn-glossy:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(128, 0, 32, 0.45), inset 0 2px 4px rgba(255,255,255,0.4);
+            filter: brightness(1.1);
+        }
+
+        .btn-glossy:disabled {
+            background: linear-gradient(135deg, #C4C4C4 0%, #B0B0B0 100%);
+            cursor: not-allowed;
+            box-shadow: none;
+            transform: none;
+        }
+
+        /* Header */
+        header {
+            padding: 24px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 2px solid var(--beige);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.6rem;
+            font-weight: 700;
+            font-family: 'Comfortaa', cursive;
+            background: var(--gradient-burgundy);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 2px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+        }
+
+        .nav-links a {
+            font-weight: 600;
+            font-size: 0.9rem;
+            letter-spacing: 0.5px;
+            color: var(--navy);
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--burgundy);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--burgundy);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 120px 0;
+            display: flex;
+            align-items: center;
+            gap: 60px;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(128, 0, 32, 0.08) 0%, transparent 70%);
+            z-index: -1;
+        }
+
+        .hero-content {
+            flex: 1;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: var(--gradient-burgundy);
+            color: var(--white);
+            padding: 10px 24px;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 15px rgba(128, 0, 32, 0.3);
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            line-height: 1.2;
+            margin-bottom: 28px;
+            color: var(--navy);
+            font-weight: 700;
+        }
+
+        .hero-title span {
+            background: var(--gradient-burgundy);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: 1.1rem;
+            margin-bottom: 40px;
+            color: #555;
+            font-weight: 400;
+            line-height: 1.8;
+        }
+
+        .hero-tags {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 32px;
+        }
+
+        .hero-tag {
+            background: rgba(27, 58, 87, 0.1);
+            padding: 10px 24px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: var(--navy);
+            border: 1px solid rgba(27, 58, 87, 0.3);
+        }
+
+        .hero-image-container {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            position: relative;
+        }
+
+        .hero-image-wrapper {
+            position: relative;
+            padding: 20px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            border: 2px solid var(--beige);
+            box-shadow: var(--shadow-soft);
+        }
+
+        .hero-image {
+            width: 100%;
+            max-width: 420px;
+            border-radius: 20px;
+            display: block;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 120px 0;
+            position: relative;
+            background: linear-gradient(180deg, transparent 0%, rgba(27, 58, 87, 0.03) 50%, transparent 100%);
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .section-subtitle {
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--burgundy);
+            margin-bottom: 16px;
+        }
+
+        .section-title {
+            font-size: 2.8rem;
+            font-weight: 700;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 3px;
+            background: var(--gradient-burgundy);
+            margin: 20px auto 0;
+            border-radius: 2px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 32px;
+        }
+
+        .feature-card {
+            padding: 40px 32px;
+            border-radius: 24px;
+            text-align: center;
+            transition: all 0.4s ease;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-hover);
+            border-color: rgba(128, 0, 32, 0.3);
+        }
+
+        .feature-icon {
+            font-size: 2.8rem;
+            margin-bottom: 24px;
+            display: block;
+        }
+
+        .feature-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 16px;
+            font-weight: 700;
+            color: var(--navy);
+        }
+
+        .feature-card p {
+            color: #555;
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        .section-cta {
+            text-align: center;
+            margin-top: 60px;
+        }
+
+        /* Pricing Section */
+        .pricing {
+            padding: 120px 0;
+            background: linear-gradient(180deg, transparent 0%, rgba(128, 0, 32, 0.04) 50%, transparent 100%);
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 48px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .pricing-card {
+            border-radius: 28px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+        }
+
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .pricing-header {
+            padding: 40px 32px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .pricing-header.individual {
+            background: var(--gradient-navy);
+        }
+
+        .pricing-header.group {
+            background: var(--gradient-burgundy);
+        }
+
+        .pricing-header h3 {
+            color: var(--white);
+            font-size: 1.5rem;
+            margin-bottom: 16px;
+            font-weight: 700;
+        }
+
+        .price-wrapper {
+            display: flex;
+            align-items: baseline;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .price-from {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1rem;
+            font-weight: 600;
+            font-family: 'Comfortaa', cursive;
+        }
+
+        .price {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--white);
+            font-family: 'Comfortaa', cursive;
+            line-height: 1;
+        }
+
+        .price-period {
+            color: rgba(255, 255, 255, 0.85);
+            font-size: 0.95rem;
+            font-weight: 500;
+            margin-top: 8px;
+        }
+
+        .pricing-body {
+            padding: 40px 32px;
+        }
+
+        .pricing-list {
+            list-style: none;
+            margin-bottom: 32px;
+        }
+
+        .pricing-list li {
+            margin-bottom: 18px;
+            padding-left: 36px;
+            position: relative;
+            color: #555;
+            font-size: 0.95rem;
+        }
+
+        .pricing-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--burgundy);
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .pricing-cta {
+            text-align: center;
+            padding: 0 32px 40px;
+        }
+
+        /* FAQ Section */
+        .faq {
+            padding: 120px 0;
+        }
+
+        .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            border-radius: 16px;
+            margin-bottom: 16px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+        }
+
+        .faq-item:hover {
+            border-color: rgba(128, 0, 32, 0.3);
+            box-shadow: var(--shadow-soft);
+        }
+
+        .faq-question {
+            padding: 24px 32px;
+            font-weight: 700;
+            font-size: 1.05rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: transparent;
+            font-family: 'Comfortaa', cursive;
+            color: var(--navy);
+        }
+
+        .faq-question::after {
+            content: '+';
+            font-size: 1.8rem;
+            color: var(--burgundy);
+            transition: transform 0.3s ease;
+            font-weight: 300;
+        }
+
+        .faq-item.active .faq-question::after {
+            transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.4s ease;
+            background: rgba(245, 230, 211, 0.4);
+            padding: 0 32px;
+        }
+
+        .faq-item.active .faq-answer {
+            padding: 0 32px 24px;
+            max-height: 350px;
+        }
+
+        .faq-answer p {
+            padding-top: 16px;
+            color: #555;
+            line-height: 1.8;
+        }
+
+        .faq-cta {
+            text-align: center;
+            margin-top: 60px;
+        }
+
+        /* Reviews Section */
+        .reviews {
+            padding: 120px 0;
+            background: linear-gradient(180deg, transparent 0%, rgba(27, 58, 87, 0.04) 50%, transparent 100%);
+        }
+
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 32px;
+        }
+
+        .review-card {
+            padding: 40px;
+            border-radius: 24px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .review-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+            border-color: rgba(27, 58, 87, 0.3);
+        }
+
+        .review-card::before {
+            content: '"';
+            font-size: 6rem;
+            color: rgba(128, 0, 32, 0.12);
+            position: absolute;
+            top: -10px;
+            left: 24px;
+            font-family: 'Comfortaa', cursive;
+            line-height: 1;
+        }
+
+        .review-text {
+            font-style: italic;
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 24px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .review-author {
+            font-weight: 700;
+            color: var(--burgundy);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .stars {
+            color: #D4A574;
+            letter-spacing: 2px;
+        }
+
+        .reviews-cta {
+            text-align: center;
+            margin-top: 60px;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 120px 0;
+            position: relative;
+            background: var(--gradient-navy);
+        }
+
+        .contact::before {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -10%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.05) 0%, transparent 70%);
+            z-index: 0;
+        }
+
+        .contact-header {
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .contact-header h2 {
+            color: var(--white);
+            font-size: 2.8rem;
+            font-weight: 700;
+        }
+
+        .contact-header .section-subtitle {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .cta-box {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            color: var(--navy);
+            max-width: 580px;
+            margin: 0 auto;
+            padding: 48px;
+            border-radius: 32px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-box h3 {
+            font-size: 1.8rem;
+            margin-bottom: 12px;
+            text-align: center;
+            color: var(--navy);
+            font-weight: 700;
+        }
+
+        .cta-box p {
+            text-align: center;
+            color: #666;
+            margin-bottom: 32px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 18px 24px;
+            border: 2px solid rgba(27, 58, 87, 0.2);
+            border-radius: 14px;
+            font-family: 'Comfortaa', cursive;
+            font-size: 0.95rem;
+            background: rgba(255, 255, 255, 0.9);
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--burgundy);
+            box-shadow: 0 0 0 4px rgba(128, 0, 32, 0.15);
+        }
+
+        .checkbox-wrapper {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            margin: 24px 0;
+            text-align: left;
+            font-size: 0.85rem;
+            color: #555;
+        }
+
+        .checkbox-wrapper input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+            accent-color: var(--burgundy);
+            margin-top: 2px;
+            flex-shrink: 0;
+        }
+
+        .checkbox-wrapper a {
+            color: var(--burgundy);
+            text-decoration: none;
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.3s ease;
+            font-weight: 600;
+        }
+
+        .checkbox-wrapper a:hover {
+            border-bottom-color: var(--burgundy);
+        }
+
+        .btn-submit {
+            background: var(--gradient-burgundy);
+            color: var(--white);
+            border: none;
+            padding: 18px 48px;
+            font-size: 1rem;
+            font-weight: 700;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            box-shadow: var(--shadow-glossy);
+            width: 100%;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-family: 'Comfortaa', cursive;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-submit::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .btn-submit:hover::before {
+            left: 100%;
+        }
+
+        .btn-submit:hover:not(:disabled) {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(128, 0, 32, 0.45), inset 0 2px 4px rgba(255,255,255,0.4);
+            filter: brightness(1.1);
+        }
+
+        .btn-submit:disabled {
+            background: linear-gradient(135deg, #C4C4C4 0%, #B0B0B0 100%);
+            cursor: not-allowed;
+            box-shadow: none;
+            transform: none;
+        }
+
+        .social-links {
+            margin-top: 48px;
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .social-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 54px;
+            height: 54px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            color: var(--white);
+            transition: all 0.3s ease;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .social-btn:hover {
+            background: var(--burgundy);
+            transform: translateY(-4px);
+            border-color: var(--burgundy);
+            box-shadow: 0 8px 20px rgba(128, 0, 32, 0.4);
+        }
+
+        .social-btn svg {
+            width: 24px;
+            height: 24px;
+            fill: currentColor;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--navy);
+            color: rgba(255, 255, 255, 0.6);
+            padding: 40px 0;
+            text-align: center;
+            font-size: 0.85rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .hero {
+                flex-direction: column;
+                text-align: center;
+                padding: 80px 0;
+            }
+
+            .hero-content {
+                order: 2;
+            }
+
+            .hero-image-container {
+                order: 1;
+            }
+
+            .hero-tags {
+                justify-content: center;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .pricing-grid {
+                gap: 32px;
+            }
+
+            .cta-box {
+                padding: 32px 24px;
+            }
+
+            .price {
+                font-size: 2.8rem;
+            }
+
+            .btn-glossy {
+                padding: 14px 32px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container nav-container">
+            <div class="logo">MerryEasyEnglish</div>
+            <nav class="nav-links">
+                <a href="#about">Обо мне</a>
+                <a href="#features">Преимущества</a>
+                <a href="#pricing">Цены</a>
+                <a href="#reviews">Отзывы</a>
+                <a href="#faq">FAQ</a>
+                <a href="#contact">Контакты</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero" id="about">
+        <div class="container" style="display: flex; align-items: center; gap: 60px; flex-wrap: wrap;">
+            <div class="hero-content">
+                <span class="hero-badge">Английский для школьников</span>
+                <h1 class="hero-title">Английский язык <span>с удовольствием</span></h1>
+                <p class="hero-subtitle">
+                    Привет! Меня зовут <strong>Мария Черникова</strong>.<br>
+                    Более 20 лет я помогаю школьникам от 7 до 18 лет полюбить английский язык, 
+                    преодолеть языковой барьер и получать отличные оценки.
+                </p>
+                <div class="hero-tags">
+                    <span class="hero-tag">Опыт 20+ лет</span>
+                    <span class="hero-tag">Возраст 7-18 лет</span>
+                    <span class="hero-tag">Онлайн формат</span>
+                </div>
+                <a href="#contact" class="btn-glossy">Записаться</a>
+            </div>
+            <div class="hero-image-container">
+                <div class="hero-image-wrapper">
+                    <img src="images/front.png" alt="Мария Черникова" class="hero-image">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-header">
+                <p class="section-subtitle">Почему онлайн</p>
+                <h2 class="section-title">Современный подход</h2>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card glass">
+                    <span class="feature-icon">🏠</span>
+                    <h3>Комфорт дома</h3>
+                    <p>Никаких пробок и сборов. Занимайтесь в уютной обстановке с чашкой любимого чая.</p>
+                </div>
+                <div class="feature-card glass">
+                    <span class="feature-icon">⏰</span>
+                    <h3>Гибкий график</h3>
+                    <p>Подберем время, удобное именно вам, включая выходные дни.</p>
+                </div>
+                <div class="feature-card glass">
+                    <span class="feature-icon">💻</span>
+                    <h3>Интерактив</h3>
+                    <p>Современные платформы, игры, видео и интерактивные доски для максимального вовлечения.</p>
+                </div>
+                <div class="feature-card glass">
+                    <span class="feature-icon">📚</span>
+                    <h3>Материалы</h3>
+                    <p>Все учебники и пособия в цифровом формате всегда под рукой.</p>
+                </div>
+            </div>
+            <div class="section-cta">
+                <a href="#contact" class="btn-glossy">Записаться на занятие</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="pricing" id="pricing">
+        <div class="container">
+            <div class="section-header">
+                <p class="section-subtitle">Форматы обучения</p>
+                <h2 class="section-title">Стоимость занятий</h2>
+            </div>
+            <div class="pricing-grid">
+                <div class="pricing-card glass">
+                    <div class="pricing-header individual">
+                        <h3>Индивидуально</h3>
+                        <div class="price-wrapper">
+                            <span class="price-from">от</span>
+                            <span class="price">1000</span>
+                        </div>
+                        <p class="price-period">за 30 минут</p>
+                    </div>
+                    <div class="pricing-body">
+                        <ul class="pricing-list">
+                            <li>Индивидуальная программа</li>
+                            <li>Школьная программа</li>
+                            <li>Подготовка к экзаменам</li>
+                            <li>Удобный личный график</li>
+                            <li>Полное погружение в язык</li>
+                            <li>Работа над ошибками в реальном времени</li>
+                        </ul>
+                    </div>
+                    <div class="pricing-cta">
+                        <a href="#contact" class="btn-glossy">Записаться</a>
+                    </div>
+                </div>
+
+                <div class="pricing-card glass">
+                    <div class="pricing-header group">
+                        <h3>В мини-группе</h3>
+                        <div class="price-wrapper">
+                            <span class="price-from">от</span>
+                            <span class="price">600</span>
+                        </div>
+                        <p class="price-period">за занятие (45-60 мин)</p>
+                    </div>
+                    <div class="pricing-body">
+                        <ul class="pricing-list">
+                            <li>Разбор школьной программы</li>
+                            <li>Группы до 4 человек</li>
+                            <li>Языковая практика с peers</li>
+                            <li>Игровые элементы обучения</li>
+                            <li>Доступ к общим материалам</li>
+                            <li>Мотивация через соревнование</li>
+                        </ul>
+                    </div>
+                    <div class="pricing-cta">
+                        <a href="#contact" class="btn-glossy">Записаться</a>
+                    </div>
+                </div>
+            </div>
+            <div class="section-cta">
+                <a href="#contact" class="btn-glossy">Выбрать формат обучения</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="faq" id="faq">
+        <div class="container">
+            <div class="section-header">
+                <p class="section-subtitle">Вопросы и ответы</p>
+                <h2 class="section-title">Частые вопросы</h2>
+            </div>
+            <div class="faq-container">
+                <div class="faq-item glass">
+                    <div class="faq-question">Как проходит запись на занятия?</div>
+                    <div class="faq-answer">
+                        <p>Вы оставляете заявку на сайте или пишете мне в мессенджер. Мы созваниваемся на 5-10 минут, чтобы обсудить цели и уровень ребенка, выбираем удобное время и бронируем слот в расписании.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item glass">
+                    <div class="faq-question">Можно ли перенести занятие?</div>
+                    <div class="faq-answer">
+                        <p>Да, конечно! Жизнь бывает разной. Занятие можно перенести без потери оплаты, если вы предупредите меня не позднее, чем за 2 часа до начала урока.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item glass">
+                    <div class="faq-question">Что будет, если мы не придем на урок и не предупредим?</div>
+                    <div class="faq-answer">
+                        <p>В этом случае занятие считается проведенным и оплачивается в полном объеме, так как время было забронировано специально для вас и упущено мной.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item glass">
+                    <div class="faq-question">Как проходит оплата?</div>
+                    <div class="faq-answer">
+                        <p>Оплата производится абонементом заранее: за блок из 4 или 8 занятий. Это дисциплинирует и гарантирует сохранение вашего времени в расписании на весь месяц.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item glass">
+                    <div class="faq-question">Нужно ли покупать учебники?</div>
+                    <div class="faq-answer">
+                        <p>Чаще всего мы используем цифровые версии современных британских учебников, ссылки на которые я предоставляю. Иногда могут потребоваться рабочие тетради, но мы обсудим это на первом занятии.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="faq-cta">
+                <a href="#contact" class="btn-glossy">Остались вопросы? Запишитесь!</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="reviews" id="reviews">
+        <div class="container">
+            <div class="section-header">
+                <p class="section-subtitle">Отзывы</p>
+                <h2 class="section-title">Что говорят клиенты</h2>
+            </div>
+            <div class="reviews-grid">
+                <div class="review-card glass">
+                    <p class="review-text">Мария — чудесный педагог! Сын (9 лет) раньше ненавидел английский, а теперь бежит к компьютеру на урок. Оценки в школе исправились с тройки на твердую пятерку за полгода.</p>
+                    <div class="review-author">
+                        <span class="stars">★★★★★</span>
+                        <span>Елена, мама Артема</span>
+                    </div>
+                </div>
+                <div class="review-card glass">
+                    <p class="review-text">Готовились к ОГЭ в индивидуальном формате. Очень нравится подход: без зубрежки, всё понятно и структурировано. Сдала экзамен на 88 баллов, чему невероятно рада!</p>
+                    <div class="review-author">
+                        <span class="stars">★★★★★</span>
+                        <span>Алина, 15 лет</span>
+                    </div>
+                </div>
+                <div class="review-card glass">
+                    <p class="review-text">Занимаемся в мини-группе уже второй год. Ребенку нравится общение с другими детьми, атмосфера на уроках очень легкая и веселая. Спасибо за профессионализм!</p>
+                    <div class="review-author">
+                        <span class="stars">★★★★★</span>
+                        <span>Ольга Викторовна</span>
+                    </div>
+                </div>
+            </div>
+            <div class="reviews-cta">
+                <a href="#contact" class="btn-glossy">Хочу так же! Записаться</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="contact" id="contact">
+        <div class="container">
+            <div class="contact-header">
+                <p class="section-subtitle">Начните сегодня</p>
+                <h2 class="section-title">Готовы начать?</h2>
+            </div>
+            <div class="cta-box">
+                <h3>Записаться на занятие</h3>
+                <p>Оставьте заявку и я свяжусь с вами в ближайшее время</p>
+                <form id="bookingForm">
+    <div class="form-group">
+        <input type="text" id="name" class="form-input" placeholder="Ваше имя" required>
+    </div>
+    <div class="form-group">
+        <input type="tel" id="phone" class="form-input" placeholder="Ваш телефон" required>
+    </div>
+    <div class="checkbox-wrapper">
+        <input type="checkbox" id="terms" required>
+        <label for="terms">
+            Я ознакомлен(а) и согласен(на) с условиями <a href="YOUR_OFFER_LINK_HERE" target="_blank">договора-оферты</a>, а также даю согласие на обработку персональных данных в соответствии с <a href="YOUR_PRIVACY_LINK_HERE" target="_blank">политикой конфиденциальности</a>.
+        </label>
+    </div>
+    <button type="submit" class="btn-submit" id="submitBtn" disabled>Записаться</button>
+</form>
+            </div>
+
+            <div class="social-links">
+                <a href="https://pin.it/4iSXZF8SU" class="social-btn" target="_blank" title="Pinterest">
+                    <img src="images/pin.png" alt="Pinterest" style="width: 34px; height: 34px;">
+                </a>
+                <a href="https://vk.com/merryeasyenglish" class="social-btn" target="_blank" title="ВКонтакте">
+                   <img src="images/vk.png" alt="ВКонтакте" style="width: 42px; height: 42px;">
+                </a>
+                <a href="https://t.me/mariathefirst" class="social-btn" target="_blank" title="Telegram">
+                    <img src="images/telegram.png" alt="Telegram" style="width: 34px; height: 34px;">
+                </a>
+                <a href="https://max.ru/join/Lo2kzYNVq7UAoRpN7YPP8Ip_ORBensJKdca-o4Utec" class="social-btn" target="_blank" title="Max Messenger">
+                <img src="images/max.png" alt="Max" style="width: 34px; height: 34px;">
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 MerryEasyEnglish. Мария Черникова. Все права защищены.</p>
+        </div>
+    </footer>
+
+    <script>
+        const faqItems = document.querySelectorAll('.faq-item');
+        
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            question.addEventListener('click', () => {
+                faqItems.forEach(otherItem => {
+                    if (otherItem !== item) {
+                        otherItem.classList.remove('active');
+                    }
+                });
+                item.classList.toggle('active');
+            });
+        });
+
+        const termsCheckbox = document.getElementById('terms');
+        const submitBtn = document.getElementById('submitBtn');
+
+        termsCheckbox.addEventListener('change', function() {
+            if (this.checked) {
+                submitBtn.disabled = false;
+            } else {
+                submitBtn.disabled = true;
+            }
+        });
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+	<script>
+// Отправка формы в Telegram
+document.getElementById('bookingForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const btn = document.getElementById('submitBtn');
+    const originalText = btn.innerText;
+    btn.innerText = 'Отправка...';
+    btn.disabled = true;
+
+    const name = document.getElementById('name').value;
+    const phone = document.getElementById('phone').value;
+    
+    // ВСТАВЬТЕ СЮДА ВАШИ ДАННЫЕ:
+    const token = '8765552705:AAEmerkhL6aFeydpxx-KTNjhS6ICpVMVqRM'; // Замените на токен от BotFather
+    const chatId = '748324771'; // Замените на ваш Chat ID
+    
+    const message = `🎓 Новая заявка на занятие!%0A%0A👤 Имя: ${name}%0A📞 Телефон: ${phone}`;
+    
+    fetch(`https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${message}`)
+        .then(response => {
+            if (response.ok) {
+                alert('Спасибо! Заявка отправлена. Я свяжусь с вами в ближайшее время.');
+                document.getElementById('bookingForm').reset();
+                document.getElementById('terms').checked = false;
+                document.getElementById('submitBtn').disabled = true;
+            } else {
+                alert('Ошибка отправки. Пожалуйста, напишите мне напрямую в мессенджер.');
+            }
+        })
+        .catch(() => {
+            alert('Ошибка соединения. Проверьте интернет и попробуйте снова.');
+        })
+        .finally(() => {
+            btn.innerText = originalText;
+            btn.disabled = false;
+        });
+});
+</script>
+</body>
+</html>
+
