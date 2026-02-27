@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
@@ -150,6 +149,7 @@
         .nav-links {
             display: flex;
             gap: 40px;
+            align-items: center;
         }
 
         .nav-links a {
@@ -177,6 +177,22 @@
 
         .nav-links a:hover::after {
             width: 100%;
+        }
+
+        /* Кнопка Играть */
+        .play-btn {
+            background: var(--gradient-burgundy);
+            color: white !important;
+            padding: 10px 24px;
+            border-radius: 25px;
+            font-weight: 700;
+            transition: 0.3s;
+            box-shadow: 0 4px 15px rgba(128, 0, 32, 0.3);
+        }
+
+        .play-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(128, 0, 32, 0.4);
         }
 
         /* Hero Section */
@@ -823,6 +839,298 @@
             border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
 
+        /* ============================
+           СТИЛИ ДЛЯ ИГРЫ
+           ============================ */
+        
+        /* Модальные окна */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.85);
+            backdrop-filter: blur(5px);
+            justify-content: center;
+            align-items: center;
+            overflow-y: auto;
+            padding: 20px;
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #fff5e6 0%, #fff 100%);
+            padding: 40px 30px;
+            border-radius: 24px;
+            text-align: center;
+            position: relative;
+            max-width: 900px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+            animation: modalSlideIn 0.4s ease-out;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .claim-modal-content {
+            max-width: 500px;
+        }
+
+        @keyframes modalSlideIn {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 25px;
+            font-size: 35px;
+            font-weight: bold;
+            cursor: pointer;
+            color: #aaa;
+            transition: 0.3s;
+            line-height: 1;
+        }
+
+        .close-btn:hover {
+            color: var(--burgundy);
+            transform: rotate(90deg);
+        }
+
+        .modal-content h2 {
+            color: var(--navy);
+            margin-bottom: 10px;
+            font-size: 2rem;
+        }
+
+        .modal-content p {
+            color: #666;
+            margin-bottom: 25px;
+        }
+
+        /* Контейнер игры */
+        .game-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 50px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        /* Список призов справа */
+        .prizes-list {
+            text-align: left;
+            flex: 1;
+            min-width: 220px;
+            max-width: 300px;
+        }
+
+        .prize-item {
+            padding: 12px 15px;
+            margin: 8px 0;
+            border-radius: 10px;
+            background: #f8f9fa;
+            transition: all 0.4s ease;
+            font-size: 14px;
+            border-left: 4px solid transparent;
+        }
+
+        .prize-item.active {
+            background: #fff3cd;
+            color: #856404;
+            font-weight: bold;
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(255, 193, 7, 0.5);
+            border-left: 4px solid #ffc107;
+        }
+
+        /* Колесо */
+        .wheel-container {
+            position: relative;
+            width: 320px;
+            height: 320px;
+            flex-shrink: 0;
+        }
+
+        .wheel {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 12px solid #ffc107;
+            position: relative;
+            overflow: hidden;
+            transition: transform 3s cubic-bezier(0.17, 0.67, 0.12, 0.99);
+            box-shadow: 0 0 30px rgba(255, 193, 7, 0.6), inset 0 0 20px rgba(0,0,0,0.2);
+            background: conic-gradient(
+                #ff4757 0deg 60deg, 
+                #ffa502 60deg 120deg, 
+                #ff4757 120deg 180deg, 
+                #ffa502 180deg 240deg, 
+                #ff4757 240deg 300deg, 
+                #ffa502 300deg 360deg
+            );
+        }
+
+        .segment {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 50%;
+            height: 50%;
+            transform-origin: 0% 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .segment span {
+            position: absolute;
+            left: -40px;
+            bottom: 60px;
+            transform: rotate(30deg);
+            font-size: 32px;
+        }
+
+        .wheel-pointer {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-top: 35px solid #fff;
+            z-index: 10;
+            filter: drop-shadow(0 4px 4px rgba(0,0,0,0.4));
+        }
+
+        .wheel-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            background: radial-gradient(circle, #ffd700 0%, #ff8c00 100%);
+            border-radius: 50%;
+            border: 5px solid white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            z-index: 5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+
+        /* Кнопки в игре */
+        .spin-btn, .claim-btn {
+            background: var(--gradient-burgundy);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 18px;
+            font-weight: 700;
+            border-radius: 50px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s;
+            box-shadow: var(--shadow-glossy);
+            display: inline-block;
+            font-family: 'Comfortaa', cursive;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .spin-btn:hover, .claim-btn:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(128, 0, 32, 0.45);
+            filter: brightness(1.1);
+        }
+
+        .spin-btn:disabled {
+            background: linear-gradient(135deg, #C4C4C4 0%, #B0B0B0 100%);
+            cursor: not-allowed;
+            box-shadow: none;
+            transform: none;
+        }
+
+        .claim-btn {
+            background: linear-gradient(45deg, #2ed573, #7bed9f);
+            box-shadow: 0 6px 20px rgba(46, 213, 115, 0.4);
+        }
+
+        .claim-btn:hover {
+            box-shadow: 0 8px 25px rgba(46, 213, 115, 0.6);
+        }
+
+        /* Форма заявки */
+        #telegramForm input {
+            width: 100%;
+            padding: 14px;
+            margin: 12px 0;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            box-sizing: border-box;
+            font-size: 16px;
+            transition: 0.3s;
+            font-family: 'Comfortaa', cursive;
+        }
+
+        #telegramForm input:focus {
+            border-color: var(--burgundy);
+            outline: none;
+        }
+
+        #telegramForm .submit-btn {
+            background: var(--gradient-burgundy);
+            margin-top: 15px;
+        }
+
+        /* Адаптив для мобильных */
+        @media (max-width: 768px) {
+            .nav-links {
+                gap: 20px;
+            }
+            
+            .play-btn {
+                padding: 8px 16px;
+                font-size: 0.8rem;
+            }
+
+            .game-container {
+                flex-direction: column-reverse;
+                gap: 30px;
+            }
+
+            .prizes-list {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 8px;
+                max-width: 100%;
+            }
+
+            .prize-item {
+                font-size: 12px;
+                padding: 8px 12px;
+                margin: 4px;
+            }
+
+            .wheel-container {
+                width: 280px;
+                height: 280px;
+            }
+
+            .modal-content {
+                padding: 30px 20px;
+            }
+        }
+
         /* Responsive */
         @media (max-width: 992px) {
             .hero {
@@ -888,6 +1196,7 @@
                 <a href="#reviews">Отзывы</a>
                 <a href="#faq">FAQ</a>
                 <a href="#contact">Контакты</a>
+                <a href="#" class="play-btn" onclick="openGameModal(event)">🎡 Играть!</a>
             </nav>
         </div>
     </header>
@@ -1105,20 +1414,20 @@
                 <h3>Записаться на занятие</h3>
                 <p>Оставьте заявку и я свяжусь с вами в ближайшее время</p>
                 <form id="bookingForm">
-    <div class="form-group">
-        <input type="text" id="name" class="form-input" placeholder="Ваше имя" required>
-    </div>
-    <div class="form-group">
-        <input type="tel" id="phone" class="form-input" placeholder="Ваш телефон" required>
-    </div>
-    <div class="checkbox-wrapper">
-        <input type="checkbox" id="terms" required>
-        <label for="terms">
-            Я ознакомлен(а) и согласен(на) с условиями <a href="YOUR_OFFER_LINK_HERE" target="_blank">договора-оферты</a>, а также даю согласие на обработку персональных данных в соответствии с <a href="YOUR_PRIVACY_LINK_HERE" target="_blank">политикой конфиденциальности</a>.
-        </label>
-    </div>
-    <button type="submit" class="btn-submit" id="submitBtn" disabled>Записаться</button>
-</form>
+                    <div class="form-group">
+                        <input type="text" id="name" class="form-input" placeholder="Ваше имя" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="tel" id="phone" class="form-input" placeholder="Ваш телефон" required>
+                    </div>
+                    <div class="checkbox-wrapper">
+                        <input type="checkbox" id="terms" required>
+                        <label for="terms">
+                            Я ознакомлен(а) и согласен(на) с условиями <a href="YOUR_OFFER_LINK_HERE" target="_blank">договора-оферты</a>, а также даю согласие на обработку персональных данных в соответствии с <a href="YOUR_PRIVACY_LINK_HERE" target="_blank">политикой конфиденциальности</a>.
+                        </label>
+                    </div>
+                    <button type="submit" class="btn-submit" id="submitBtn" disabled>Записаться</button>
+                </form>
             </div>
 
             <div class="social-links">
@@ -1143,6 +1452,65 @@
             <p>&copy; 2024 MerryEasyEnglish. Мария Черникова. Все права защищены.</p>
         </div>
     </footer>
+
+    <!-- ============================
+         МОДАЛЬНЫЕ ОКНА ИГРЫ
+         ============================ -->
+    
+    <!-- Модальное окно ИГРЫ -->
+    <div id="gameModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeGameModal()">&times;</span>
+            <h2>Испытай удачу! 🎡</h2>
+            <p>Крути колесо и забирай подарок для изучения английского</p>
+            
+            <div class="game-container">
+                <!-- Блок с описанием призов (справа) -->
+                <div class="prizes-list" id="prizesList">
+                    <div class="prize-item" id="prize-0">💸 Скидка 10%</div>
+                    <div class="prize-item" id="prize-1">🎓 Пробный урок</div>
+                    <div class="prize-item" id="prize-2">📄 Полезная PDF</div>
+                    <div class="prize-item" id="prize-3">✅ Чек-лист</div>
+                    <div class="prize-item" id="prize-4">💬 Мини-консультация</div>
+                    <div class="prize-item" id="prize-5">📊 Определ. уровня</div>
+                </div>
+
+                <!-- Колесо ТОЛЬКО С ЭМОДЗИ -->
+                <div class="wheel-container">
+                    <div class="wheel-pointer"></div>
+                    <div class="wheel" id="wheel">
+                        <div class="segment" style="transform: rotate(0deg) skewY(-30deg);"><span>💸</span></div>
+                        <div class="segment" style="transform: rotate(60deg) skewY(-30deg);"><span>🎓</span></div>
+                        <div class="segment" style="transform: rotate(120deg) skewY(-30deg);"><span>📄</span></div>
+                        <div class="segment" style="transform: rotate(180deg) skewY(-30deg);"><span>✅</span></div>
+                        <div class="segment" style="transform: rotate(240deg) skewY(-30deg);"><span>💬</span></div>
+                        <div class="segment" style="transform: rotate(300deg) skewY(-30deg);"><span>📊</span></div>
+                    </div>
+                    <div class="wheel-center">🎯</div>
+                </div>
+            </div>
+
+            <button id="spinBtn" class="spin-btn" onclick="spinWheel()">Вращать!</button>
+            <button id="claimBtn" class="claim-btn" style="display: none;" onclick="openClaimModal()">Забрать приз 🎁</button>
+        </div>
+    </div>
+
+    <!-- Модальное окно ФОРМЫ (Забрать приз) -->
+    <div id="claimModal" class="modal">
+        <div class="modal-content claim-modal-content">
+            <span class="close-btn" onclick="closeClaimModal()">&times;</span>
+            <h3>Поздравляем! 🎉</h3>
+            <p>Вы выиграли: <b id="winnerText" style="color: var(--burgundy); font-size: 1.2rem;"></b></p>
+            <p>Оставьте контакты, чтобы я отправила вам приз:</p>
+            
+            <form id="telegramForm" onsubmit="sendToTelegram(event)">
+                <input type="text" id="userName" placeholder="Ваше имя" required>
+                <input type="tel" id="userPhone" placeholder="Ваш телефон" required>
+                <input type="hidden" id="winPrize" value="">
+                <button type="submit" class="btn-submit submit-btn">Отправить</button>
+            </form>
+        </div>
+    </div>
 
     <script>
         const faqItems = document.querySelectorAll('.faq-item');
@@ -1178,47 +1546,199 @@
                 });
             });
         });
-    </script>
-	<script>
-// Отправка формы в Telegram
-document.getElementById('bookingForm').addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    const btn = document.getElementById('submitBtn');
-    const originalText = btn.innerText;
-    btn.innerText = 'Отправка...';
-    btn.disabled = true;
 
-    const name = document.getElementById('name').value;
-    const phone = document.getElementById('phone').value;
-    
-    // ВСТАВЬТЕ СЮДА ВАШИ ДАННЫЕ:
-    const token = '8765552705:AAEmerkhL6aFeydpxx-KTNjhS6ICpVMVqRM'; // Замените на токен от BotFather
-    const chatId = '748324771'; // Замените на ваш Chat ID
-    
-    const message = `🎓 Новая заявка на занятие!%0A%0A👤 Имя: ${name}%0A📞 Телефон: ${phone}`;
-    
-    fetch(`https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${message}`)
-        .then(response => {
-            if (response.ok) {
-                alert('Спасибо! Заявка отправлена. Я свяжусь с вами в ближайшее время.');
-                document.getElementById('bookingForm').reset();
-                document.getElementById('terms').checked = false;
-                document.getElementById('submitBtn').disabled = true;
-            } else {
-                alert('Ошибка отправки. Пожалуйста, напишите мне напрямую в мессенджер.');
-            }
-        })
-        .catch(() => {
-            alert('Ошибка соединения. Проверьте интернет и попробуйте снова.');
-        })
-        .finally(() => {
-            btn.innerText = originalText;
-            btn.disabled = false;
+        // Отправка формы в Telegram
+        document.getElementById('bookingForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const btn = document.getElementById('submitBtn');
+            const originalText = btn.innerText;
+            btn.innerText = 'Отправка...';
+            btn.disabled = true;
+
+            const name = document.getElementById('name').value;
+            const phone = document.getElementById('phone').value;
+            
+            const token = '8765552705:AAEmerkhL6aFeydpxx-KTNjhS6ICpVMVqRM';
+            const chatId = '748324771';
+            
+            const message = `🎓 Новая заявка на занятие!%0A%0A👤 Имя: ${name}%0A📞 Телефон: ${phone}`;
+            
+            fetch(`https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${message}`)
+                .then(response => {
+                    if (response.ok) {
+                        alert('Спасибо! Заявка отправлена. Я свяжусь с вами в ближайшее время.');
+                        document.getElementById('bookingForm').reset();
+                        document.getElementById('terms').checked = false;
+                        document.getElementById('submitBtn').disabled = true;
+                    } else {
+                        alert('Ошибка отправки. Пожалуйста, напишите мне напрямую в мессенджер.');
+                    }
+                })
+                .catch(() => {
+                    alert('Ошибка соединения. Проверьте интернет и попробуйте снова.');
+                })
+                .finally(() => {
+                    btn.innerText = originalText;
+                    btn.disabled = false;
+                });
         });
-});
-</script>
+
+        // ============================
+        // ЛОГИКА ИГРЫ "КОЛЕСО ФОРТУНЫ"
+        // ============================
+        
+        const prizes = [
+            { id: 0, text: "Скидка 10% на абонемент", emoji: "💸" },
+            { id: 1, text: "Бесплатный пробный урок", emoji: "🎓" },
+            { id: 2, text: "Полезная PDF", emoji: "📄" },
+            { id: 3, text: "Чек-лист отличника", emoji: "✅" },
+            { id: 4, text: "Бесплатная мини-консультация", emoji: "💬" },
+            { id: 5, text: "Бесплатное определение уровня", emoji: "📊" }
+        ];
+
+        let currentRotation = 0;
+        let isSpinning = false;
+        let wonPrize = null;
+
+        // Проверка при загрузке страницы - играл ли уже пользователь
+        document.addEventListener('DOMContentLoaded', function() {
+            checkIfAlreadyPlayed();
+        });
+
+        function checkIfAlreadyPlayed() {
+            const hasPlayed = localStorage.getItem('merryEasyEnglish_wheel_played');
+            const spinBtn = document.getElementById('spinBtn');
+            const claimBtn = document.getElementById('claimBtn');
+            
+            if (hasPlayed === 'true') {
+                if (spinBtn) spinBtn.style.display = 'none';
+                if (claimBtn) {
+                    claimBtn.style.display = 'inline-block';
+                    claimBtn.innerText = 'У вас уже есть приз! Забрать 🎁';
+                }
+            }
+        }
+
+        function openGameModal(e) {
+            if (e) e.preventDefault();
+            checkIfAlreadyPlayed();
+            document.getElementById('gameModal').style.display = 'flex';
+        }
+
+        function closeGameModal() {
+            document.getElementById('gameModal').style.display = 'none';
+        }
+
+        function openClaimModal() {
+            if (!wonPrize) {
+                const savedPrize = localStorage.getItem('merryEasyEnglish_wheel_prize');
+                if (savedPrize) {
+                    wonPrize = JSON.parse(savedPrize);
+                } else {
+                    return;
+                }
+            }
+            
+            document.getElementById('winnerText').innerText = `${wonPrize.emoji} ${wonPrize.text}`;
+            document.getElementById('winPrize').value = wonPrize.text;
+            document.getElementById('claimModal').style.display = 'flex';
+        }
+
+        function closeClaimModal() {
+            document.getElementById('claimModal').style.display = 'none';
+        }
+
+        window.onclick = function(event) {
+            if (event.target == document.getElementById('gameModal')) closeGameModal();
+            if (event.target == document.getElementById('claimModal')) closeClaimModal();
+        }
+
+        function spinWheel() {
+            const hasPlayed = localStorage.getItem('merryEasyEnglish_wheel_played');
+            if (hasPlayed === 'true') {
+                alert('Вы уже сыграли! Ваш приз ждет вас.');
+                openClaimModal();
+                return;
+            }
+
+            if (isSpinning) return;
+            isSpinning = true;
+            
+            const spinBtn = document.getElementById('spinBtn');
+            const claimBtn = document.getElementById('claimBtn');
+            const wheel = document.getElementById('wheel');
+            
+            spinBtn.style.display = 'none';
+            claimBtn.style.display = 'none';
+
+            document.querySelectorAll('.prize-item').forEach(el => el.classList.remove('active'));
+
+            const randomDeg = Math.floor(Math.random() * 360);
+            const totalRotation = currentRotation + 1800 + randomDeg;
+            
+            wheel.style.transform = `rotate(-${totalRotation}deg)`;
+            currentRotation = totalRotation;
+
+            setTimeout(() => {
+                isSpinning = false;
+                
+                calculateWinner(totalRotation);
+                
+                localStorage.setItem('merryEasyEnglish_wheel_played', 'true');
+                localStorage.setItem('merryEasyEnglish_wheel_prize', JSON.stringify(wonPrize));
+                
+                spinBtn.style.display = 'none';
+                claimBtn.style.display = 'inline-block';
+                claimBtn.innerText = 'Забрать приз 🎁';
+                
+            }, 3000);
+        }
+
+        function calculateWinner(rotation) {
+            const actualDeg = rotation % 360;
+            const winningAngle = (360 - actualDeg) % 360;
+            const segmentSize = 60;
+            const winningIndex = Math.floor(winningAngle / segmentSize);
+
+            wonPrize = prizes[winningIndex];
+
+            const prizeElement = document.getElementById(`prize-${winningIndex}`);
+            if (prizeElement) {
+                prizeElement.classList.add('active');
+                prizeElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }
+
+        function sendToTelegram(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('userName').value;
+            const phone = document.getElementById('userPhone').value;
+            const prize = document.getElementById('winPrize').value;
+            
+            const token = '8765552705:AAEmerkhL6aFeydpxx-KTNjhS6ICpVMVqRM';
+            const chatId = '748324771';
+            
+            const message = `🎉 Новая заявка с Колеса Фортуны!%0A%0A👤 Имя: ${name}%0A📞 Телефон: ${phone}%0A🎁 Выигрыш: ${prize}`;
+            
+            fetch(`https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${message}`)
+                .then(response => {
+                    if (response.ok) {
+                        alert('Спасибо! Ваша заявка отправлена. Я скоро свяжусь с вами.');
+                        closeClaimModal();
+                        closeGameModal();
+                        document.getElementById('userName').value = '';
+                        document.getElementById('userPhone').value = '';
+                    } else {
+                        alert('Ошибка отправки. Пожалуйста, напишите мне напрямую в контакты.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    alert('Ошибка сети. Попробуйте позже.');
+                });
+        }
+    </script>
 </body>
 </html>
-
-
